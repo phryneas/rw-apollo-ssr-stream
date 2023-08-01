@@ -1,16 +1,18 @@
-import { useEffect } from 'react'
-
-import { Link, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { useServerInsertedHTML } from '@redwoodjs/web'
 
 import BlogPostCell from 'src/components/BlogPostCell'
-import { useServerInsertedHTML } from 'src/ServerHtmlContext'
 
 type BlogPostPageProps = {
   id: number
 }
 
 const BlogPostPage = ({ id }: BlogPostPageProps) => {
+  useServerInsertedHTML(() => {
+    console.log('Running from BlogPostPage')
+
+    return <meta name="bazinga" content="FIND ME AFTER INJECTION" />
+  })
+
   return (
     <>
       {/* <MetaTags title={`Post ${id}`} description={`Description ${id}`} /> */}

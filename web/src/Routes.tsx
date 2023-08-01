@@ -11,7 +11,7 @@ import { Router, Route, Private, Set } from '@redwoodjs/router'
 
 import BlogLayout from 'src/layouts/BlogLayout'
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
-// import HomePage from 'src/pages/HomePage'
+import HomePage from 'src/pages/HomePage'
 
 import { useAuth } from './auth'
 

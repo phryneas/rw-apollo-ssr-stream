@@ -1,4 +1,5 @@
 import { LocationProvider } from '@redwoodjs/router'
+import { ServerHtmlProvider } from '@redwoodjs/web'
 
 import App from './App'
 import { Document } from './Document'
