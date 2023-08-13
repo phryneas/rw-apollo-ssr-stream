@@ -1,6 +1,7 @@
 import { FindBlogPostQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
+import { MetaTags } from '@redwoodjs/web'
 
 import Author from 'src/components/Author'
 
@@ -11,6 +12,7 @@ const BlogPost = ({ blogPost }: Props) => {
     <article>
       {blogPost && (
         <>
+          <MetaTags title={blogPost.title} />
           <header className="mt-4">
             <p className="text-sm">
               {new Intl.DateTimeFormat('en-US', {

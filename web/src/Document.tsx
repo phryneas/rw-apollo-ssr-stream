@@ -1,11 +1,11 @@
 import React from 'react'
 
 import type { TagDescriptor } from '@redwoodjs/web'
-import { Css, Meta, ServerInjectedHtml } from '@redwoodjs/web'
+import { Css, Meta } from '@redwoodjs/web'
 
 interface DocumentProps {
   children: React.ReactNode
-  css: string[] // array of css import strings
+  css?: string[] // array of css import strings
   meta?: TagDescriptor[]
 }
 

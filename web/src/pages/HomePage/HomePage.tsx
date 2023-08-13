@@ -1,7 +1,5 @@
 import { setVerbosity } from 'ts-invariant'
 
-import { useServerInsertedHTML } from '@redwoodjs/web'
-
 import BlogPostsCell from 'src/components/BlogPostsCell'
 
 // const doSomething = () => {
