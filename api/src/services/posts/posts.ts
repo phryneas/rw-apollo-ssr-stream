@@ -1,28 +1,26 @@
+import { setTimeout } from 'node:timers/promises'
+
 import type {
   QueryResolvers,
   MutationResolvers,
   PostRelationResolvers,
 } from 'types/graphql'
 
+import { AuthenticationError } from '@redwoodjs/graphql-server'
+
 import { db } from 'src/lib/db'
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
 export const posts: QueryResolvers['posts'] = async () => {
-  // Simulate delay to debug streaming
-  // if (firstCall) {
-  //   firstCall = false
-  //   await wait(5000)
-  // } else {
-  //   await wait(1000)
-  // }
-  // await wait(5000)
+  await setTimeout(5000)
+
+  // Simulate error to see if message actually comes through
+  // throw new AuthenticationError('bazinga')
 
   return db.post.findMany()
 }
 
 export const post: QueryResolvers['post'] = async ({ id }) => {
-  await wait(5000)
+  // await setTimeout(5000)
 
   return db.post.findUnique({
     where: { id },

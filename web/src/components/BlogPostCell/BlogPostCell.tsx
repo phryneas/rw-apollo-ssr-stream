@@ -22,7 +22,21 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => {
+  return (
+    <div className="mt-4">
+      <div className="flex animate-pulse">
+        <div className="h-4 w-1/5 rounded-full bg-gray-400"></div>
+      </div>
+      <div className="mt-5 animate-pulse">
+        <div className="h-4 w-4/5 rounded-full bg-gray-400"></div>
+        <div className="mt-2 h-4 w-3/4 rounded-full bg-gray-400"></div>
+        <div className="mt-2 h-4 w-1/2 rounded-full bg-gray-400"></div>
+        <div className="mt-2 h-4 w-full rounded-full bg-gray-400"></div>
+      </div>
+    </div>
+  )
+}
 
 export const Empty = () => <div>Empty</div>
 
