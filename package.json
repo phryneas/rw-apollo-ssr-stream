@@ -7,7 +7,7 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/core": "7.0.0-canary.227"
+    "@redwoodjs/core": "7.0.0-canary.252"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
@@ -22,7 +22,6 @@
   },
   "packageManager": "yarn@3.6.1",
   "resolutions": {
-    "@apollo/experimental-nextjs-app-support@^0.4.1": "patch:@apollo/experimental-nextjs-app-support@npm%3A0.4.1#./.yarn/patches/@apollo-experimental-nextjs-app-support-npm-0.4.1-de585a5c53.patch",
     "@apollo/client": "0.0.0-pr-11180-20230830082114"
   }
 }
