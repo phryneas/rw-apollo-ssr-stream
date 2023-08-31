@@ -20,7 +20,7 @@ export const posts: QueryResolvers['posts'] = async () => {
 }
 
 export const post: QueryResolvers['post'] = async ({ id }) => {
-  // await setTimeout(5000)
+  await setTimeout(id * 1000)
 
   return db.post.findUnique({
     where: { id },

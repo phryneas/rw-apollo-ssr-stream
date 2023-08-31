@@ -22,21 +22,23 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => {
-  return (
-    <div className="mt-4">
-      <div className="flex animate-pulse">
-        <div className="h-4 w-1/5 rounded-full bg-gray-400"></div>
-      </div>
-      <div className="mt-5 animate-pulse">
-        <div className="h-4 w-4/5 rounded-full bg-gray-400"></div>
-        <div className="mt-2 h-4 w-3/4 rounded-full bg-gray-400"></div>
-        <div className="mt-2 h-4 w-1/2 rounded-full bg-gray-400"></div>
-        <div className="mt-2 h-4 w-full rounded-full bg-gray-400"></div>
-      </div>
-    </div>
-  )
-}
+// @NOTE: Intentionally disabled Loading, so we can use Suspense boundary in HomePage
+
+// export const Loading = () => {
+//   return (
+//     <div className="mt-4">
+//       <div className="flex animate-pulse">
+//         <div className="h-4 w-1/5 rounded-full bg-gray-400"></div>
+//       </div>
+//       <div className="mt-5 animate-pulse">
+//         <div className="h-4 w-4/5 rounded-full bg-gray-400"></div>
+//         <div className="mt-2 h-4 w-3/4 rounded-full bg-gray-400"></div>
+//         <div className="mt-2 h-4 w-1/2 rounded-full bg-gray-400"></div>
+//         <div className="mt-2 h-4 w-full rounded-full bg-gray-400"></div>
+//       </div>
+//     </div>
+//   )
+// }
 
 export const Empty = () => <div>Empty</div>
 
@@ -51,3 +53,10 @@ export const Success = ({
 }: CellSuccessProps<FindBlogPostQuery, FindBlogPostQueryVariables>) => (
   <BlogPost blogPost={blogPost} />
 )
+
+export const beforeQuery = (v) => {
+  return {
+    variables: v,
+    fetchPolicy: 'network-only', // @MARK (APOLLO): anything but 'no-cache' breaks suspense behaviour we are looking for
+  }
+}
