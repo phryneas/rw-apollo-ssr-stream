@@ -1,8 +1,9 @@
-import { Suspense } from 'react'
+import { Suspense, useState, use, useRef } from 'react'
 
 import { setVerbosity } from 'ts-invariant'
 
 import BlogPostCell from 'src/components/BlogPostCell'
+import { useServerInsertedHTML } from '@redwoodjs/web'
 
 setVerbosity('debug')
 
@@ -22,19 +23,56 @@ const Loading = () => {
   )
 }
 
+function DelayedComponent({
+  time,
+  delays,
+}: {
+  time: number
+  delays: Map<number, Promise<void>>
+}) {
+  const logged = useRef(false)
+  if (typeof window === 'undefined') {
+    const delay =
+      delays.get(time) ??
+      new Promise<void>((resolve) => setTimeout(resolve, time * 1000))
+    delays.set(time, delay)
+    use(delay)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+
+    useServerInsertedHTML(() => {
+      if (!logged.current) {
+        logged.current = true
+        return (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `console.log("delayed by ${time} seconds")`,
+            }}
+          />
+        )
+      }
+      return <></>
+    })
+  }
+  return <>Delayed by {time} seconds</>
+}
+
 const HomePage = () => {
   // @NOTE: for reproduction, I've made the queries respond slowly.
   // 1 responds in 1a, 2 in 2, 3 in 3s
+  const [delays] = useState(new Map<number, Promise<void>>())
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <BlogPostCell id={1} />
+      <Suspense>
+        <DelayedComponent time={1} delays={delays} />
       </Suspense>
-
-      {/* Wrap 2 and 3 in the same loading */}
-      <Suspense fallback={<Loading />}>
-        <BlogPostCell id={2} />
-        <BlogPostCell id={3} />
+      <Suspense>
+        <DelayedComponent time={2} delays={delays} />
+      </Suspense>
+      <Suspense>
+        <DelayedComponent time={3} delays={delays} />
+      </Suspense>
+      <Suspense>
+        <DelayedComponent time={4} delays={delays} />
       </Suspense>
     </>
   )
